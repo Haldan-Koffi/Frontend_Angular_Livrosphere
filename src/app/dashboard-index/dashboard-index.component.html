@@ -1,0 +1,32 @@
+<p>Hello {{ username }}</p>
+
+<button (click)="logout()" class="btn btn-danger">Déconnexion</button>
+
+<main class="main">
+  <h1>Liste des commentaires</h1>
+
+  <!-- Si la liste des commentaires est vide -->
+  <div *ngIf="commentaires.length === 0">
+    <p>Il n'y a pas de commentaires</p>
+  </div>
+
+  <!-- Tableau pour afficher les commentaires -->
+  <table class="table table-striped" *ngIf="commentaires.length > 0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Message</th>
+        <th>Utilisateur</th>
+        <th>Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let commentaire of commentaires">
+        <td>{{ commentaire.id }}</td>
+        <td>{{ commentaire.message }}</td>
+        <td>{{ commentaire.utilisateur }}</td>
+        <td>{{ commentaire.dateCommentaire }}</td>
+      </tr>
+    </tbody>
+  </table>
+</main>

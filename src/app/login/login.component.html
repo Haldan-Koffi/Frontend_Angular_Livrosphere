@@ -1,0 +1,16 @@
+<form>
+  <div>
+    <label for="email">Email:</label>
+    <input id="email" name="email" type="email" [(ngModel)]="loginId.email" />
+  </div>
+  <div>
+    <label for="password">Password:</label>
+    <input
+      id="password"
+      name="mot_de_passe"
+      type="password"
+      [(ngModel)]="loginId.mot_de_passe"
+    />
+  </div>
+  <button type="button" (click)="onLogin()">Login</button>
+</form>
