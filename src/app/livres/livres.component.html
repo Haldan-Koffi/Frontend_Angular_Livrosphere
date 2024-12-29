@@ -1,0 +1,40 @@
+<button (click)="ToTableauDeBord()" class="btn btn-primary">
+  Tableau de bord
+</button>
+
+<main class="main">
+  <h1>Liste des livres</h1>
+
+  <div *ngIf="livres.length === 0">
+    <p>Il n'y a pas de livre</p>
+  </div>
+
+  <table class="table table-striped" *ngIf="livres.length > 0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Titre</th>
+        <th>Auteur</th>
+        <th>Année de publication</th>
+        <th>Résumé</th>
+        <th>Couverture</th>
+        <th>Date d'ajout</th>
+        <th>Catégorie</th>
+        <th>Utilisateur</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let livre of livres">
+        <td>{{ livre.id }}</td>
+        <td>{{ livre.titre }}</td>
+        <td>{{ livre.auteur }}</td>
+        <td>{{ livre.annee_publication }}</td>
+        <td>{{ livre.resume }}</td>
+        <td>{{ livre.couverture }}</td>
+        <td>{{ livre.date_ajout }}</td>
+        <td>{{ livre.categorie.nom }}</td>
+        <td>{{ livre.utilisateur.pseudonyme }}</td>
+      </tr>
+    </tbody>
+  </table>
+</main>

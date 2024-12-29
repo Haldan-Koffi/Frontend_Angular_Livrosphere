@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
   selector: 'app-login',
@@ -20,15 +21,18 @@ export class LoginComponent {
   router = inject(Router);
 
   onLogin() {
-    // debugger;
     this.http.post('http://localhost:8000/api/login', this.loginId).subscribe({
-      next: (res: any) => {
-        if (res.token) {
-          localStorage.setItem('token', res.token);
+      next: (response: any) => {
+        const token = response.token;
+
+        const decodedToken: any = jwtDecode(token);
+
+        if (decodedToken.roles.includes('ROLE_ADMIN')) {
+          localStorage.setItem('token', token);
           alert('Login success');
           this.router.navigateByUrl('dashboard');
         } else {
-          alert('Login failed: Token not received');
+          alert("Login failed: Vous n'êtes pas administrateur ");
         }
       },
       error: (err) => {

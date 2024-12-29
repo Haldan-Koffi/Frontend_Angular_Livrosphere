@@ -1,29 +1,29 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-commentaires',
+  selector: 'app-livres',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './commentaires.component.html',
-  styleUrls: ['./commentaires.component.css'],
+  templateUrl: './livres.component.html',
+  styleUrl: './livres.component.css',
 })
-export class CommentairesComponent implements OnInit {
+export class LivresComponent implements OnInit {
   router = inject(Router);
-  commentaires: any[] = [];
+  livres: any[] = [];
   errorMessage: string | null = null;
 
-  private apiUrl = 'http://localhost:8000/api/commentaires';
+  private apiUrl = 'http://localhost:8000/api/livres';
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
-    this.loadCommentaires();
+    this.loadLivres();
   }
 
-  loadCommentaires(): void {
+  loadLivres(): void {
     const token = localStorage.getItem('token');
     if (!token) {
       this.errorMessage = 'Utilisateur non authentifié.';
@@ -36,11 +36,11 @@ export class CommentairesComponent implements OnInit {
 
     this.http.get<any[]>(this.apiUrl, { headers }).subscribe({
       next: (data) => {
-        this.commentaires = data;
+        this.livres = data;
       },
       error: (error) => {
-        console.error('Erreur lors du chargement des commentaires :', error);
-        this.errorMessage = 'Impossible de charger les commentaires.';
+        console.error('Erreur lors du chargement des livres :', error);
+        this.errorMessage = 'Impossible de charger les livres.';
       },
     });
   }
