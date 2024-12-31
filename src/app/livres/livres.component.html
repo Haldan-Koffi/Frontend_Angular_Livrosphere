@@ -12,6 +12,7 @@
   <table class="table table-striped" *ngIf="livres.length > 0">
     <thead>
       <tr>
+        <th>Action</th>
         <th>ID</th>
         <th>Titre</th>
         <th>Auteur</th>
@@ -25,6 +26,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let livre of livres">
+        <td><button (click)="deleteLivre(livre.id)">Supprimer</button></td>
         <td>{{ livre.id }}</td>
         <td>{{ livre.titre }}</td>
         <td>{{ livre.auteur }}</td>

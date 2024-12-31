@@ -45,6 +45,35 @@ export class CommentairesComponent implements OnInit {
     });
   }
 
+  deleteCommentaire(id: number): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.errorMessage = 'Utilisateur non authentifié';
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    const deleteUrl = `http://localhost:8000/api/commentaire/${id}/supprimer`;
+
+    this.http.delete(deleteUrl, { headers }).subscribe({
+      next: () => {
+        // Supprimer le commentaire localement après suppression côté serveur
+        this.commentaires = this.commentaires.filter(
+          (commentaire) => commentaire.id !== id
+        );
+        console.log(`Commentaire ${id} supprimé avec succès.`);
+      },
+      error: (error) => {
+        console.error('Erreur lors de la suppression du commentaire :', error);
+        this.errorMessage =
+          'Impossible de supprimer le commentaire. Veuillez réessayer.';
+      },
+    });
+  }
+
   ToTableauDeBord(): void {
     this.router.navigate(['dashboard']);
   }

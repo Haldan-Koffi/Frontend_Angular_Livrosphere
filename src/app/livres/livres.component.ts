@@ -45,6 +45,33 @@ export class LivresComponent implements OnInit {
     });
   }
 
+  deleteLivre(id: number): void {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      this.errorMessage = 'Utilisateur non authentifié';
+      return;
+    }
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+
+    const deleteUrl = `http://localhost:8000/api/livre/${id}/supprimer`;
+
+    this.http.delete(deleteUrl, { headers }).subscribe({
+      next: () => {
+        // Supprimer le livre localement après suppression côté serveur
+        this.livres = this.livres.filter((livre) => livre.id !== id);
+        console.log(`Livre ${id} supprimé avec succès.`);
+      },
+      error: (error) => {
+        console.error('Erreur lors de la suppression du livre :', error);
+        this.errorMessage =
+          'Impossible de supprimer le livre. Veuillez réessayer.';
+      },
+    });
+  }
+
   ToTableauDeBord(): void {
     this.router.navigate(['dashboard']);
   }
