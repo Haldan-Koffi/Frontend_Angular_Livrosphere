@@ -57,6 +57,7 @@ export class CommentairesComponent implements OnInit {
     });
 
     const deleteUrl = `http://localhost:8000/api/commentaire/${id}/supprimer`;
+    // const deleteUrl = `http://web004.azure.certif.academy/api/commentaire/${id}/supprimer`;
 
     this.http.delete(deleteUrl, { headers }).subscribe({
       next: () => {
