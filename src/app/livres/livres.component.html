@@ -1,42 +1,65 @@
-<button (click)="ToTableauDeBord()" class="btn btn-primary">
-  Tableau de bord
-</button>
+<!-- Bouton retour tableau de bord -->
+<div class="container mt-4">
+  <div class="d-flex justify-content-start mb-3">
+    <button (click)="ToTableauDeBord()" class="btn btn-outline-primary">
+      <i class="bi bi-speedometer2 me-2"></i> Retour au tableau de bord
+    </button>
+  </div>
+</div>
 
-<main class="main">
-  <h1>Liste des livres</h1>
+<!-- Section principale -->
+<main class="container bg-white p-4 rounded-4 shadow-sm mb-5">
+  <h1 class="text-center text-primary mb-4">
+    <i class="bi bi-book-fill me-2"></i>Liste des livres
+  </h1>
 
-  <div *ngIf="livres.length === 0">
-    <p>Il n'y a pas de livre</p>
+  <!-- Si aucun livre -->
+  <div *ngIf="livres.length === 0" class="alert alert-warning text-center">
+    <i class="bi bi-exclamation-circle-fill me-2"></i>
+    Il n'y a pas de livre à afficher.
   </div>
 
-  <table class="table table-striped" *ngIf="livres.length > 0">
-    <thead>
-      <tr>
-        <th>Action</th>
-        <th>ID</th>
-        <th>Titre</th>
-        <th>Auteur</th>
-        <th>Année de publication</th>
-        <th>Résumé</th>
-        <th>Couverture</th>
-        <th>Date d'ajout</th>
-        <th>Catégorie</th>
-        <th>Utilisateur</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let livre of livres">
-        <td><button (click)="deleteLivre(livre.id)">Supprimer</button></td>
-        <td>{{ livre.id }}</td>
-        <td>{{ livre.titre }}</td>
-        <td>{{ livre.auteur }}</td>
-        <td>{{ livre.annee_publication }}</td>
-        <td>{{ livre.resume }}</td>
-        <td>{{ livre.couverture }}</td>
-        <td>{{ livre.date_ajout }}</td>
-        <td>{{ livre.categorie.nom }}</td>
-        <td>{{ livre.utilisateur.pseudonyme }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <!-- Tableau des livres -->
+  <div *ngIf="livres.length > 0" class="table-responsive">
+    <table class="table table-hover table-bordered align-middle">
+      <thead class="table-primary text-center">
+        <tr>
+          <th>Action</th>
+          <th>ID</th>
+          <th>Titre</th>
+          <th>Auteur</th>
+          <th>Année</th>
+          <th>Résumé</th>
+          <th>Couverture</th>
+          <th>Date d'ajout</th>
+          <th>Catégorie</th>
+          <th>Utilisateur</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let livre of livres">
+          <td class="text-center">
+            <button
+              (click)="deleteLivre(livre.id)"
+              class="btn btn-outline-danger btn-sm"
+              title="Supprimer ce livre"
+            >
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+          <td class="text-center fw-semibold">{{ livre.id }}</td>
+          <td>{{ livre.titre }}</td>
+          <td>{{ livre.auteur }}</td>
+          <td class="text-center">{{ livre.annee_publication }}</td>
+          <td>{{ livre.resume }}</td>
+          <td>
+            {{ livre.couverture || "Aucune" }}
+          </td>
+          <td class="text-center">{{ livre.date_ajout }}</td>
+          <td>{{ livre.categorie.nom }}</td>
+          <td>{{ livre.utilisateur.pseudonyme }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </main>

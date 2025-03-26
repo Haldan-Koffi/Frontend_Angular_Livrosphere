@@ -1,23 +1,32 @@
-<button (click)="ToTableauDeBord()" class="btn btn-primary mb-3">
-  <i class="bi bi-speedometer2"></i> Tableau de bord
-</button>
+<!-- Bouton de retour au tableau de bord -->
+<div class="container mt-4">
+  <div class="d-flex justify-content-start mb-3">
+    <button (click)="ToTableauDeBord()" class="btn btn-outline-primary">
+      <i class="bi bi-speedometer2 me-2"></i> Retour au tableau de bord
+    </button>
+  </div>
+</div>
 
-<main class="container mt-4">
-  <h1 class="text-center text-primary mb-4">Liste des commentaires</h1>
+<!-- Section principale -->
+<main class="container bg-white p-4 rounded-4 shadow-sm">
+  <h1 class="text-center text-primary mb-4">
+    <i class="bi bi-chat-left-text-fill me-2"></i>Liste des commentaires
+  </h1>
 
-  <!-- Si la liste des commentaires est vide -->
+  <!-- Alerte si aucun commentaire -->
   <div
     *ngIf="commentaires.length === 0"
     class="alert alert-warning text-center"
     role="alert"
   >
-    <p>Il n'y a pas de commentaires.</p>
+    <i class="bi bi-exclamation-circle-fill me-2"></i>
+    Il n'y a pas de commentaires à afficher pour le moment.
   </div>
 
-  <!-- Tableau pour afficher les commentaires -->
+  <!-- Tableau des commentaires -->
   <div *ngIf="commentaires.length > 0" class="table-responsive">
-    <table class="table table-striped table-bordered">
-      <thead class="table-dark">
+    <table class="table table-hover table-bordered align-middle">
+      <thead class="table-primary text-center">
         <tr>
           <th scope="col">Action</th>
           <th scope="col">ID</th>
@@ -28,15 +37,16 @@
       </thead>
       <tbody>
         <tr *ngFor="let commentaire of commentaires">
-          <td>
+          <td class="text-center">
             <button
               (click)="deleteCommentaire(commentaire.id)"
-              class="btn btn-danger btn-sm"
+              class="btn btn-outline-danger btn-sm"
+              title="Supprimer le commentaire"
             >
-              <i class="bi bi-trash"></i> Supprimer
+              <i class="bi bi-trash"></i>
             </button>
           </td>
-          <td>{{ commentaire.id }}</td>
+          <td class="text-center fw-semibold">{{ commentaire.id }}</td>
           <td>{{ commentaire.message }}</td>
           <td>{{ commentaire.utilisateur }}</td>
           <td>{{ commentaire.dateCommentaire }}</td>
